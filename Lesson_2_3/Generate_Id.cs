@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Lesson_2_3
 {
-    internal class Generate_Id
+    public class Generate_Id
     {
-        static Guid Generate_id()
+        public static long Generate_id()
         {
-            return Guid.NewGuid();
+            DateTime centuryBegin = new DateTime(2022, 7, 4); 
+            DateTime currentDate = DateTime.Now;
+            long elapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
+            return elapsedTicks;
         }
     }
 }
