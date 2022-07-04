@@ -11,32 +11,20 @@ namespace Lesson_2_3
 {
     public class BankAccount
     {
-        private Dictionary<int, BankAccount> Accounts = new Dictionary<int, BankAccount>();
-        private int _Id = 0;
-        private int _Balance;
+        private static Dictionary<int, BankAccount> Accounts = new Dictionary<int, BankAccount>();
+        private int _Id;
+        private decimal _Balance;
         private string _Type, _User_Name;
         
 
-        private void Data()
-        {
-            if (File.Exists(@"dictionary.json"))
-            {
-                string json = File.ReadAllText("dictionary.json");
-                //Accounts = JsonConvert.DeserializeObject<Dictionary<int, BankAccount>>(json);
-                foreach (var item in Accounts)
-                {
-                    Console.WriteLine($"{item.Key} {item.Value}");
-                }
-            }
-        }
+        
         
         public void Create(int Balance, string Type, string User_Name)
         {
-            Data();
+            _Id = 
             Accounts.Add(_Id, new BankAccount { _Balance = Balance, _Type = Type, _User_Name = User_Name });
             Invoice_Output(_Id);
-            Dict_to_json();
-            _Id++;
+            
         }
         private void Invoice_Output(int id)
         {
@@ -44,7 +32,7 @@ namespace Lesson_2_3
         }
         public void WithDraw(int id, int sum)
         {
-            Data();
+            //Data();
             if (Accounts[id]._Balance >= sum)
             {
                 Accounts[id]._Balance -= sum;
@@ -53,12 +41,12 @@ namespace Lesson_2_3
 
         }
 
-        private void Dict_to_json()
+        /*private void Dict_to_json()
         {
 
             string json = JsonConvert.SerializeObject(Accounts);
             File.WriteAllText("dictionary.json", json);
-        }   
+        }  */ 
 
     }
     internal class Program
