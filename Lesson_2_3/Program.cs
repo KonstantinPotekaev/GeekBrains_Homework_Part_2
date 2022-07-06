@@ -79,7 +79,7 @@ namespace Lesson_2_3
             string[] s1 = s.Split(' ');
             for (int i = 0; i < s1.Length; i++)
             {
-                if (s1[i] == "$")
+                if (s1[i] == "&")
                 {
                     s = s1[i + 1];
                     break;
@@ -89,7 +89,7 @@ namespace Lesson_2_3
     }
     internal class Program
     {
-        static async void Main(string[] args)
+        static void Main(string[] args)
         {
 
             BankAccount account_1 = new BankAccount(1000, "base", "Konstantin");
@@ -107,10 +107,11 @@ namespace Lesson_2_3
 
             Console.WriteLine("Введите путь к файлу");
             string path = Console.ReadLine();
+            
             using (StreamReader reader = new StreamReader(path))
             {
-                string? line;
-                while((line = await reader.ReadLineAsync()) != null)
+                string line ;
+                while((line = reader.ReadLine()) != null)
                 {
                     GB_String.SearchMail(ref line);
                     Console.WriteLine(line);
