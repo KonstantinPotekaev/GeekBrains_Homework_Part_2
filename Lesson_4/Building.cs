@@ -17,8 +17,8 @@ public class Building
         _aparts = aparts;
         _entance = entance;
     }
-    
-    public (double,int, int, int)  GetInfo()
+
+    public (double, int, int, int) GetInfo()
     {
         return (_height, _floor, _aparts, _entance);
     }
