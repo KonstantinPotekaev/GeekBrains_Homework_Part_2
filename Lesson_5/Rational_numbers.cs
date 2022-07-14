@@ -117,6 +117,17 @@ public class Rational_number
         return a;
     }
 
+    public override string ToString()
+    {
+        string a = _numerator.ToString();
+        string b = _denominator.ToString();
+        if (_numerator == 0)
+        {
+            return "0\n\n";
+        }
+        return ($"{a}\n―\n{b}\n\n");
+    }
+
 
     public static explicit operator Rational_number(int a)
     {
