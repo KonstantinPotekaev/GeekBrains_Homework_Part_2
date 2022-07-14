@@ -46,34 +46,76 @@ public class Rational_number
     public static Rational_number operator +(Rational_number a, double b)
     {
         Rational_number b1 = (Rational_number)b;
-        if (a._numerator == b1._numerator)
+        var a1 = a;
+        if (a1._numerator == b1._numerator)
         {
-            return new Rational_number(a._numerator * 2, a._denominator);
+            return new Rational_number(a1._numerator * 2, a1._denominator);
         }
         int denominator = b1._denominator;
         b1._numerator *= a._denominator;
         b1._denominator *= a._denominator;
-        a._numerator *= denominator;
-        a._denominator *= denominator;
-        return new Rational_number(a._numerator + b1._numerator, a._denominator);
+        a1._numerator *= denominator;
+        a1._denominator *= denominator;
+        return new Rational_number(a1._numerator + b1._numerator, a1._denominator);
     }
     public static Rational_number operator +(Rational_number a, Rational_number b)
     {
-        if (a._numerator == b._numerator)
+        var a1 = a;
+        var b1 = b;
+        if (a1._numerator == b1._numerator)
         {
             return new Rational_number(a._numerator * 2, a._denominator);
         }
-        int denominator = b._denominator;
-        b._numerator *= a._denominator;
-        b._denominator *= a._denominator;
-        a._numerator *= denominator;
-        a._denominator *= denominator;
-        return new Rational_number(a._numerator + b._numerator, a._denominator);
+        int denominator = b1._denominator;
+        b1._numerator *= a1._denominator;
+        b1._denominator *= a1._denominator;
+        a1._numerator *= denominator;
+        a1._denominator *= denominator;
+        return new Rational_number(a1._numerator + b1._numerator, a1._denominator);
     }
-    /*public static Rational_number operator -(Rational_number a, Rational_number b)
+
+
+    public static Rational_number operator -(Rational_number a, int b)
     {
-        return (double)a._numerator / a._denominator >= (double)b._numerator / b._denominator;
-    }*/
+        Rational_number b1 = (Rational_number)b;
+        var a1 = a;
+        b1._numerator *= a1._denominator;
+        b1._denominator *= a1._denominator;
+        return new Rational_number(a1._numerator - b1._numerator, a1._denominator);
+    }
+    public static Rational_number operator -(Rational_number a, double b)
+    {
+        var b1 = (Rational_number)b;
+        var a1 = a;
+        int denominator = b1._denominator;
+        b1._numerator *= a1._denominator;
+        b1._denominator *= a1._denominator;
+        a1._numerator *= denominator;
+        a1._denominator *= denominator;
+        return new Rational_number(a1._numerator - b1._numerator, a1._denominator);
+    }
+    public static Rational_number operator -(Rational_number a, Rational_number b)
+    {
+        var a1 = a;
+        var b1 = b;
+        int denominator = b1._denominator;
+        b1._numerator *= a1._denominator;
+        b1._denominator *= a1._denominator;
+        a1._numerator *= denominator;
+        a1._denominator *= denominator;
+        return new Rational_number(a1._numerator - b1._numerator, a1._denominator);
+    }
+
+    public static Rational_number operator ++(Rational_number a)
+    {
+        a._numerator += a._denominator;
+        return a;
+    }
+    public static Rational_number operator --(Rational_number a)
+    {
+        a._numerator -= a._denominator;
+        return a;
+    }
 
 
     public static explicit operator Rational_number(int a)
