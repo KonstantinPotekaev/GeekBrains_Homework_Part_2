@@ -121,11 +121,29 @@ public class Rational_number
     {
         string a = _numerator.ToString();
         string b = _denominator.ToString();
+        char[] a1 = a.ToCharArray();
+        char[] b1 = b.ToCharArray();
+        Array.Reverse(a1);
+        Array.Reverse(b1);
         if (_numerator == 0)
         {
             return "0\n\n";
         }
-        return ($"{a}\n―\n{b}\n\n");
+        for (int i = 0; i < a1.Length && i<b1.Length; i++)
+        {
+            if (a1[i] == b1[i] && a1[i] == '0') 
+            {
+                a1[i] = ' ';
+                b1[i] = ' ';
+            }
+            else
+                break;
+        }
+        Array.Reverse(a1);
+        Array.Reverse(b1);
+        _numerator = int.Parse(a1);
+        _denominator = int.Parse(b1);
+        return ($"{new string(a1)}\n―\n{new string(b1)}\n\n");
     }
 
 
