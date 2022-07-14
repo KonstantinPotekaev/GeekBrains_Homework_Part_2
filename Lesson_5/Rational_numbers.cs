@@ -117,33 +117,33 @@ public class Rational_number
         return a;
     }
 
-    public override string ToString()
+    
+
+    public static Rational_number operator *(Rational_number a, int b)
     {
-        string a = _numerator.ToString();
-        string b = _denominator.ToString();
-        char[] a1 = a.ToCharArray();
-        char[] b1 = b.ToCharArray();
-        Array.Reverse(a1);
-        Array.Reverse(b1);
-        if (_numerator == 0)
-        {
-            return "0\n\n";
-        }
-        for (int i = 0; i < a1.Length && i<b1.Length; i++)
-        {
-            if (a1[i] == b1[i] && a1[i] == '0') 
-            {
-                a1[i] = ' ';
-                b1[i] = ' ';
-            }
-            else
-                break;
-        }
-        Array.Reverse(a1);
-        Array.Reverse(b1);
-        _numerator = int.Parse(a1);
-        _denominator = int.Parse(b1);
-        return ($"{new string(a1)}\n―\n{new string(b1)}\n\n");
+        return new Rational_number(a._numerator * b, a._denominator * 1);
+    }
+    public static Rational_number operator *(Rational_number a, double b)
+    {
+        return new Rational_number(a._numerator * ((Rational_number)b)._numerator, a._denominator * ((Rational_number)b)._denominator);
+    }
+    public static Rational_number operator *(Rational_number a, Rational_number b)
+    {
+        return new Rational_number(a._numerator * b._numerator, a._denominator * b._denominator);
+    }
+
+
+    public static Rational_number operator /(Rational_number a, int b)
+    {
+        return a * new Rational_number(1, b);
+    }
+    public static Rational_number operator /(Rational_number a, double b)
+    {
+        return a * new Rational_number(((Rational_number)b)._denominator, ((Rational_number)b)._numerator);
+    }
+    public static Rational_number operator /(Rational_number a, Rational_number b)
+    {
+        return a * new Rational_number(b._denominator, b._numerator);
     }
 
 
@@ -171,7 +171,48 @@ public class Rational_number
             return new Rational_number((int)(k*den)+int.Parse(num), den);
         }
     }
-
-
     
+    public static explicit operator int(Rational_number a)
+    {
+        return (int)((double)a);
+    }
+    public static explicit operator double(Rational_number a)
+    {
+        return (double)a._numerator / a._denominator;
+    }
+
+
+    public override string ToString()
+    {
+        string a = _numerator.ToString();
+        string b = _denominator.ToString();
+        char[] a1 = a.ToCharArray();
+        char[] b1 = b.ToCharArray();
+        Array.Reverse(a1);
+        Array.Reverse(b1);
+        if (_numerator == 0)
+        {
+            return "0\n\n";
+        }
+        if (_numerator % _denominator == 0)
+        {
+            return $"{(_numerator / _denominator).ToString()}\n\n" ;
+        }
+        for (int i = 0; i < a1.Length && i < b1.Length; i++)
+        {
+            if (a1[i] == b1[i] && a1[i] == '0')
+            {
+                a1[i] = ' ';
+                b1[i] = ' ';
+            }
+            else
+                break;
+        }
+        Array.Reverse(a1);
+        Array.Reverse(b1);
+        _numerator = int.Parse(a1);
+        _denominator = int.Parse(b1);
+        return ($"{new string(a1)}\n―\n{new string(b1)}\n\n");
+    }
+
 }
