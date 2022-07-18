@@ -52,7 +52,7 @@ namespace Lesson_2_3
             Console.WriteLine(account_2);
             //Console.ReadKey();
 
-
+            Console.WriteLine(account_1.GetHashCode());
 
             Console.WriteLine("Введите строку: ");
             string s = Console.ReadLine();
