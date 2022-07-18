@@ -11,29 +11,31 @@ namespace Lesson_2_3
 {
     public class BankAccount
     {
-        public static Dictionary<long, BankAccount> Accounts = new Dictionary<long, BankAccount>();
+        //public static Dictionary<long, BankAccount> Accounts = new Dictionary<long, BankAccount>();
         private long _Id;
         private decimal _Balance;
         private string _Type, _User_Name;
         
 
-        public void Create(int Balance, string Type, string User_Name)
+        public BankAccount(int Balance, string Type, string User_Name)
         {
             _Id = Generate_Id.Generate_id();
-            Accounts.Add(_Id, new BankAccount { _Balance = Balance, _Type = Type, _User_Name = User_Name });
-            Invoice_Output(_Id);
+            _Balance = Balance;
+            _Type = Type;
+            _User_Name = User_Name;
+            Invoice_Output();
             
         }
-        private void Invoice_Output(long id)
+        private void Invoice_Output()
         {
-            Console.Write("Id = " + id + '\n' + "Name = " + Accounts[id]._User_Name + '\n' + "Balance = " + Accounts[id]._Balance + '\n' + "Type = " + Accounts[id]._Type + '\n' + '\n');
+            Console.Write("Id = " + _Id + '\n' + "Name = " + _User_Name + '\n' + "Balance = " + _Balance + '\n' + "Type = " + _Type + '\n' + '\n');
         }
-        public void WithDraw(long id, decimal sum)
+        public void WithDraw(decimal sum)
         {
-            if (Accounts[id]._Balance >= sum)
+            if (_Balance >= sum)
             {
-                Accounts[id]._Balance -= sum;
-                Invoice_Output(id);
+                _Balance -= sum;
+                Invoice_Output();
             }
             else
             {
@@ -42,55 +44,82 @@ namespace Lesson_2_3
             }
 
         }
-        public void PutOn(long id, decimal sum)
+        public void PutOn(decimal sum)
         {
-            Accounts[id]._Balance += sum;
-            Invoice_Output(id);
+            _Balance += sum;
+            Invoice_Output();
+        }
+
+        public bool TarnsferMoney(BankAccount Sourse, decimal Ammount)
+        {
+            if (Sourse._Balance >= Ammount)
+            {
+                Sourse._Balance -= Ammount;
+                _Balance += Ammount;
+                return true;
+            }
+            else
+                return false;
+        }
+    }
+
+    
+
+    public class GB_String
+    {
+        public static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+        public static void SearchMail(ref string s)
+        {
+            string[] s1 = s.Split(' ');
+            for (int i = 0; i < s1.Length; i++)
+            {
+                if (s1[i] == "&")
+                {
+                    s = s1[i + 1];
+                    break;
+                }
+            }
         }
     }
     internal class Program
     {
         static void Main(string[] args)
         {
+
+            BankAccount account_1 = new BankAccount(1000, "base", "Konstantin");
+            BankAccount account_2 = new BankAccount(10000, "base", "Artem");
+            account_1.WithDraw(500);
+            account_2.PutOn(500);
+            Console.WriteLine(account_2.TarnsferMoney(account_1, 500)); 
+            //Console.ReadKey();
+
+
             
-            while (true)
+            Console.WriteLine("Введите строку: ");
+            string s = Console.ReadLine();
+            Console.WriteLine(GB_String.Reverse(s) + '\n');
+
+            Console.WriteLine("Введите путь к файлу");
+            string path = Console.ReadLine();
+            
+            using (StreamReader reader = new StreamReader(path))
             {
-                
-                Console.Write("Вы хотите открыть новый счет, произвести действия с уже существующим или выйти: ");
-                string n = Console.ReadLine().ToLower();
-                
-                switch (n)
+                string line ;
+                while((line = reader.ReadLine()) != null)
                 {
-                    case "открыть новый счет":
-                        Console.Write("Введите сумму: ");
-                        int sum = int.Parse(Console.ReadLine());
-                        Console.Write("Введите тип счета: ");
-                        string type = Console.ReadLine();
-                        Console.Write("Введите Ваше имя: ");
-                        string name = Console.ReadLine();
-                        new BankAccount().Create(sum, type, name);
-                        break;
-                    case "произвести действия":
-                        Console.Write("Введите номер вашего счета: ");
-                        long Id = long.Parse(Console.ReadLine());
-                        Console.Write("Вы хотите снять или положить деньги: ");
-                        string n1 = Console.ReadLine().ToLower();
-                        switch (n1)
-                        {
-                            case "снять":
-                                Console.Write("Введите сумму: ");
-                                decimal decrease = decimal.Parse(Console.ReadLine());
-                                new BankAccount().WithDraw(Id, decrease);
-                                break;
-                            case "положить":
-                                Console.Write("Введите сумму: ");
-                                decimal increase = decimal.Parse(Console.ReadLine()); 
-                                new BankAccount().PutOn(Id, increase);
-                                break;
-                        }
-                        break;
+                    GB_String.SearchMail(ref line);
+                    Console.WriteLine(line);
                 }
             }
+            Console.ReadKey();
         }
+
+        
     }
 }
