@@ -55,3 +55,18 @@ public class Circle : Point
         
     }*/
 }
+
+public class Rectangle : Point
+{
+    double _length, _width;
+    public Rectangle(string colour, bool status, double x, double y, double length, double width) : base(colour, status, x, y)
+    {
+        _length = length;
+        _width = width;
+    }
+
+    public double Square()
+    {
+        return _length * _width;
+    }
+}
