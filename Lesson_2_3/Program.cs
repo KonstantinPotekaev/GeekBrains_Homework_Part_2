@@ -26,28 +26,20 @@ namespace Lesson_2_3
             Invoice_Output();
             
         }
-        private void Invoice_Output()
+        public string Invoice_Output()
         {
-            Console.Write("Id = " + _Id + '\n' + "Name = " + _User_Name + '\n' + "Balance = " + _Balance + '\n' + "Type = " + _Type + '\n' + '\n');
+            return ($"Id = {_Id}\nName = {_User_Name}\nBalance = {_Balance}\nType = {_Type}\n\n");
         }
-        public void WithDraw(decimal sum)
+        public bool WithDraw(decimal sum)
         {
-            if (_Balance >= sum)
-            {
-                _Balance -= sum;
-                Invoice_Output();
-            }
-            else
-            {
-                Console.WriteLine("Недостаточно средств");
-
-            }
-
+            _Balance -= sum;
+            return _Balance >= sum;
+                
         }
-        public void PutOn(decimal sum)
+        public bool PutOn(decimal sum)
         {
             _Balance += sum;
-            Invoice_Output();
+            return true;
         }
 
         public bool TarnsferMoney(BankAccount Sourse, decimal Ammount)
@@ -94,13 +86,17 @@ namespace Lesson_2_3
 
             BankAccount account_1 = new BankAccount(1000, "base", "Konstantin");
             BankAccount account_2 = new BankAccount(10000, "base", "Artem");
-            account_1.WithDraw(500);
-            account_2.PutOn(500);
-            Console.WriteLine(account_2.TarnsferMoney(account_1, 500)); 
+            Console.WriteLine(account_1.WithDraw(500));
+            Console.WriteLine(account_1.Invoice_Output());
+            Console.WriteLine(account_2.PutOn(500));
+            Console.WriteLine(account_2.Invoice_Output());
+            Console.WriteLine(account_2.TarnsferMoney(account_1, 500));
+            Console.WriteLine(account_1.Invoice_Output());
+            Console.WriteLine(account_2.Invoice_Output());
             //Console.ReadKey();
 
 
-            
+
             Console.WriteLine("Введите строку: ");
             string s = Console.ReadLine();
             Console.WriteLine(GB_String.Reverse(s) + '\n');
@@ -110,8 +106,8 @@ namespace Lesson_2_3
             
             using (StreamReader reader = new StreamReader(path))
             {
-                string line ;
-                while((line = reader.ReadLine()) != null)
+                string line;
+                while ((line = reader.ReadLine()) != null )
                 {
                     GB_String.SearchMail(ref line);
                     Console.WriteLine(line);
