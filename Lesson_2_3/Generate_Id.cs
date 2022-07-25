@@ -8,10 +8,10 @@ namespace Lesson_2_3
 {
     public static class Generate_Id
     {
-        private static long k = 0;
-        public static long Generate_id()
+        private static int k = 0;
+        public static int Generate_id()
         {
-            return k++;
+            return ++k;
             /*DateTime centuryBegin = new DateTime(2022, 7, 4); 
             DateTime currentDate = DateTime.Now;
             long elapsedTicks = currentDate.Ticks - centuryBegin.Ticks;
